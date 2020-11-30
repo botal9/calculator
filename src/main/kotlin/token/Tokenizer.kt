@@ -19,7 +19,7 @@ class Tokenizer {
 
     private interface State {
         fun traverse(c: Char)
-        fun terminate() {}
+        fun terminate()
     }
 
     private inner class BeginState : State {
@@ -72,5 +72,7 @@ class Tokenizer {
         override fun traverse(c: Char) {
             throw UnsupportedOperationException("Trying to perform traverse at EndState")
         }
+
+        override fun terminate() { }
     }
 }
