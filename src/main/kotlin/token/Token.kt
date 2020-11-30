@@ -1,14 +1,26 @@
 package token
 
-sealed class Token
+import visitor.TokenVisitor
+
+sealed class Token {
+    abstract fun accept(tokenVisitor: TokenVisitor)
+}
 
 data class NumberToken(val value: Int) : Token() {
+    override fun accept(tokenVisitor: TokenVisitor) {
+        tokenVisitor.visit(this)
+    }
+
     override fun toString(): String {
         return "NUMBER($value)"
     }
 }
 
 sealed class OperationToken : Token() {
+    override fun accept(tokenVisitor: TokenVisitor) {
+        tokenVisitor.visit(this)
+    }
+
     abstract val apply: (Int, Int) -> Int
 }
 
@@ -44,7 +56,11 @@ object DivToken : OperationToken() {
     }
 }
 
-sealed class BracketToken : Token()
+sealed class BracketToken : Token() {
+    override fun accept(tokenVisitor: TokenVisitor) {
+        tokenVisitor.visit(this)
+    }
+}
 
 object LeftBracketToken : BracketToken() {
     override fun toString(): String {
