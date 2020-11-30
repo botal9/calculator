@@ -21,11 +21,13 @@ sealed class OperationToken : Token() {
         tokenVisitor.visit(this)
     }
 
-    abstract val apply: (Int, Int) -> Int
+    abstract fun apply(a: Int, b: Int): Int
+    abstract val priority: Int
 }
 
 object PlusToken : OperationToken() {
-    override val apply = { a: Int, b: Int -> a + b }
+    override fun apply(a: Int, b: Int) = a + b
+    override val priority = 1
 
     override fun toString(): String {
         return "PLUS"
@@ -33,7 +35,8 @@ object PlusToken : OperationToken() {
 }
 
 object MinusToken : OperationToken() {
-    override val apply = { a: Int, b: Int -> a - b }
+    override fun apply(a: Int, b: Int) = a - b
+    override val priority = 1
 
     override fun toString(): String {
         return "MINUS"
@@ -41,7 +44,8 @@ object MinusToken : OperationToken() {
 }
 
 object MulToken : OperationToken() {
-    override val apply = { a: Int, b: Int -> a * b }
+    override fun apply(a: Int, b: Int) = a * b
+    override val priority = 2
 
     override fun toString(): String {
         return "MUL"
@@ -49,7 +53,8 @@ object MulToken : OperationToken() {
 }
 
 object DivToken : OperationToken() {
-    override val apply = { a: Int, b: Int -> a / b }
+    override fun apply(a: Int, b: Int) = a / b
+    override val priority = 2
 
     override fun toString(): String {
         return "DIV"

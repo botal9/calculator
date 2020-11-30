@@ -1,4 +1,5 @@
 import token.Tokenizer
+import visitor.ParserVisitor
 import visitor.PrintVisitor
 import java.lang.Exception
 
@@ -9,6 +10,12 @@ fun main() {
 
         val printVisitor = PrintVisitor()
         tokens.forEach { it.accept(printVisitor) }
+        println()
+
+        val parserVisitor = ParserVisitor()
+        tokens.forEach { it.accept(parserVisitor) }
+        val parsedTokens = parserVisitor.dump()
+        parsedTokens.forEach { it.accept(printVisitor) }
     } catch (e : Exception) {
         println("Error: ${e.message}")
     }
